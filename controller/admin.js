@@ -94,7 +94,7 @@
 //   calculateMetrics,
 // };
 
-const Service = require("../model/categories");
+const Service = require("../model/service");
 const Product = require("../model/products");
 const Order = require("../model/order");
 

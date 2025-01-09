@@ -5,21 +5,17 @@ const serviceSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  active: {
-    type: Boolean,
-    default: true,
-  },
-  Isclosed: {
-    type: String,
-    default: "false",
-  },
   image: {
     type: String,
     required: true,
+  },
+  active: {
+    type: Boolean,
+    default: true,
   },
   poistionId: {
     type: String,
   },
 });
 
-module.exports = mongoose.model("Categories", serviceSchema);
+module.exports = mongoose.model("Service", serviceSchema);

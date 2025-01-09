@@ -4,16 +4,8 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const serviceRoute = require("./routes/servrice");
 const Saller = require("./routes/sallerroute");
-const Product = require("./routes/productroute"); 
+const User = require("./routes/user");
 const database = require("./config/database");
-
-
-// new
-const Categories = require("./routes/product/catogary");
-const Subcategories = require("./routes/product/subcategory");
-const Shop = require("./routes/product/Shop");
-const Products = require("./routes/product/product");
-
 
 dotenv.config();
 dotenv.config({ path: "./config/config.env" });
@@ -22,10 +14,7 @@ app.use(express.json());
 
 database();
 
-app.use("/api", serviceRoute,Product, Saller);
-
-// new
-app.use("/api", Categories, Subcategories, Shop, Products);
+app.use("/api", serviceRoute, Saller,User);
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;

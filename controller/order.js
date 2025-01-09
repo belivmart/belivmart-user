@@ -1,4 +1,4 @@
-const Service = require("../model/categories");
+const Service = require("../model/service");
 const Product = require("../model/products");
 const Order = require("../model/order");
 const sendEmail = require("../utils/sendmail");
@@ -24,6 +24,7 @@ const createOrder = async (req, res) => {
       "vaibhavrathorema@gmail.com",
       "Manish78690468@gmail.com",
       "Fooddeliveeyy1@gmail.com",
+      "vipinparasiya@gmail.com",
     ];
 
     // Send email to all recipients
@@ -160,7 +161,7 @@ const deleteOrderById = async (req, res) => {
 const getorderbystatus = async (req, res) => {
   try {
     const status = req.query.status || "Pending";
-    const orders = await Order.find({ status: status }).populate({
+    const orders = await Order.find({ status: status }).sort({ createdAt: -1 }).limit(100).populate({
       path: "products.productId",
       select:
         "name shopname price FinalPrice discountPercentage thumbnail availableTimes minorderquantity packof active ourprice",

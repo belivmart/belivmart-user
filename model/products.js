@@ -1,67 +1,105 @@
+// const mongoose = require("mongoose");
+// const service = require("./service");
+
+// const serviceSchema = new mongoose.Schema({
+//   name: {
+//     type: String,
+//     required: true,
+//   },
+//   shopname: {
+//     type: String,
+//   },
+//   ourprice: {
+//     type: Number,
+//   },
+//   thumbnail: {
+//     type: String,
+//     required: true,
+//   },
+//   price: {
+//     type: Number,
+//   },
+//   FinalPrice: {
+//     type: Number,
+//   },
+//   discountPercentage: {
+//     type: Number,
+//   },
+//   category: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: "Service",
+//     required: true,
+//   },
+//   active: {
+//     type: String,
+//     default: "true",
+//   },
+//   availableTimes: {
+//     type: [String],
+//   },
+//   minorderquantity: {
+//     type: Number,
+//   },
+//   packof: {
+//     type: Number,
+//   },
+//   createdAt: {
+//     type: Date,
+//     default: Date.now,
+//   },
+//   poistionId: {
+//     type: String,
+//   },
+// });
+
+// module.exports = mongoose.model("Product", serviceSchema);
+ 
+
 const mongoose = require("mongoose");
-const service = require("./categories");
 
 const serviceSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
   },
-  description: { 
+  shopname: {
     type: String,
+  },
+  ourprice: {
+    type: Number,
   },
   thumbnail: {
     type: String,
     required: true,
   },
-  active: { 
-    type: String,
-    default: "true",
-  },
-  poistionId: {
-    type: String,
-  },
-  Isclosed: {
-    type: String,
-    default: "false",
-  },
-  // ShopId: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: "ShopName",
-  // },
-
-  ourprice: {
-    type: Number,
-  },
   price: {
     type: Number,
+    required: true,
   },
+  shopPrices: [
+    {
+      shopname: String,
+      price: Number,
+    },
+  ],
   FinalPrice: {
     type: Number,
   },
-  discountPrice: {
+  discountPercentage: {
     type: Number,
   },
-
-  ShopId: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Shop",
-    },
-  ],
-  subcategories: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Subcategories",
-    },
-  ],
-
-  openTime: {
-    type: String,
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Service",
+    required: true,
   },
-  closeTime: {
+  active: {
     type: String,
+    default: "true",
   },
-
+  availableTimes: {
+    type: [String],
+  },
   minorderquantity: {
     type: Number,
   },
@@ -71,6 +109,9 @@ const serviceSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
+  },
+  poistionId: {
+    type: String,
   },
 });
 
