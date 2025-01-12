@@ -7,6 +7,10 @@ const sallerSchema = new mongoose.Schema({
   shopname: {
     type: String,
   },
+  active: {
+    type : String,
+    default : "true"
+  },
   email: {
     type: String,
   },

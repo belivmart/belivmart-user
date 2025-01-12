@@ -80,6 +80,8 @@ const serviceSchema = new mongoose.Schema({
     {
       shopname: String,
       price: Number,
+      poistionId: String,
+      active: String,
     },
   ],
   FinalPrice: {
