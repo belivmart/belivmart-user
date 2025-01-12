@@ -23,6 +23,15 @@ const orderSchema = new mongoose.Schema({
                 type: Number,
                 required: true,
             },
+            shopname: {
+                type: String,
+            },
+            SingelProductPrice: {
+                type: Number,
+            },
+            FinalPrice: {
+                type: Number,
+            },
         },
     ],
     totalAmount: {
