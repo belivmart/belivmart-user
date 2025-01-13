@@ -64,6 +64,10 @@ const serviceSchema = new mongoose.Schema({
   poistionId: {
     type: String,
   },
+  topsaller:{
+    type:String,
+    default:"false"
+  }
 });
 
 module.exports = mongoose.model("Product", serviceSchema);

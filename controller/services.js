@@ -173,6 +173,15 @@ const getproductsbyserviceid = async (req, res) => {
     }
 };
 
+const gettopsaller = async (req, res) => {
+    try {
+        const products = await Product.find({ topsaller: "true" });
+        res.status(200).json({ products });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 
 module.exports = {
     createService,
@@ -187,5 +196,6 @@ module.exports = {
     getProductById,
     getservicebyid,
     getRelatedProducts,
-    searchServices
+    searchServices,
+    gettopsaller
 };
