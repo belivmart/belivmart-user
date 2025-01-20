@@ -8,14 +8,16 @@ const sendEmail = async (email, subject, message, isHTML = false) => {
     port: 587,
     secure: false,
     auth: {
-      user: "vaibhavrathorema@gmail.com",
-      pass: "rsjm bgsh rcyt jcux",
+      user: "belivmart@gmail.com",
+      pass: "fxzc wrgz xikt czvy",
+      // user: "vaibhavrathorema@gmail.com",
+      // pass: "rsjm bgsh rcyt jcux",
     },
   });
 
   // Create mail options
   let mailOptions = {
-    from: "vaibhavrathorema@gmail.com",
+    from: "belivmart@gmail.com",
     to: email,
     subject: subject,
     text: isHTML ? undefined : message,

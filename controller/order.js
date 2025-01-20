@@ -76,7 +76,7 @@ const generateOrderEmail = (order) => {
   order.products.forEach((item) => {
     const product = item.productId;
     const imageUrl = product.thumbnail || ""; // Assume thumbnail is the image URL
-
+    const shopNameHTML = item.shopname ? `<p style="background-color: #f1f1f1; padding: 5px; border-radius: 5px; margin-top: 10px;" ><strong>Shop:</strong> ${item.shopname}</p>` : "";
     productsHTML += `
       <div style="border: 1px solid #ddd; padding: 10px; margin-bottom: 15px;">
         <img src="${imageUrl}" alt="${product.name}" style="max-width: 150px; margin-right: 15px; float: left;">
@@ -84,6 +84,7 @@ const generateOrderEmail = (order) => {
           <h3 style="margin: 0;">${product.name}</h3>
           <p><strong>Quantity:</strong> ${item.quantity}</p>
           <p><strong>Price:</strong> ₹${product.FinalPrice}</p>
+          ${shopNameHTML} 
         </div>
         <div style="clear: both;"></div>
       </div>
