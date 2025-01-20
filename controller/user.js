@@ -65,11 +65,29 @@ const RegisterUser = async (req, res, next) => {
     });
   };
   
+  const getalluser = async (req, res, next) => {
+    const user = await User.find();
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  };
 
+  const deleteuser = async (req, res, next) => {
 
+    console.log("-=-=-=-=-=",req.params.id);
+    const user = await User.findByIdAndDelete(req.params.id);
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  }
+  
   module.exports = {
     RegisterUser,
     LoginUser,
-    myProfile
+    myProfile,
+    getalluser,
+    deleteuser
   };
   

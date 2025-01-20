@@ -23,7 +23,6 @@ const createOrder = async (req, res) => {
     const recipientEmails = [
       "vaibhavrathorema@gmail.com",
       "Manish78690468@gmail.com",
-      "Fooddeliveeyy1@gmail.com",
       "vipinparasiya@gmail.com",
     ];
 
