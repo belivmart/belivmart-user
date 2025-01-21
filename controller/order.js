@@ -138,16 +138,76 @@ const getOrderById = async (req, res) => {
 };
 
 // update order by id
+// const updateOrderById = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const order = await Order.findByIdAndUpdate(id, req.body, { new: true });
+//     res.status(200).json(order);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// };
 const updateOrderById = async (req, res) => {
   try {
     const { id } = req.params;
-    const order = await Order.findByIdAndUpdate(id, req.body, { new: true });
-    res.status(200).json(order);
+    const { status } = req.body;  // Assuming the status of the order is being updated.
+    
+    // Fetch the order by its ID
+    const order = await Order.findById(id);
+    
+    if (!order) {
+      return res.status(404).json({ message: "Order not found." });
+    }
+
+    const previousStatus = order.status;
+    
+    // Update the order status in the database
+    const updatedOrder = await Order.findByIdAndUpdate(id, req.body, { new: true });
+
+    // If the status has changed to "Delivered", we need to add entries to the OrderSummary
+    if (status === "Delivered" && previousStatus !== "Delivered") {
+      // Iterate through products in the order to create entries in OrderSummary
+      for (const product of updatedOrder.products) {
+        const { productId, quantity, shopname } = product;
+
+        // Skip if product details are missing or incomplete
+        if (!productId) {
+          console.log(`Product details missing for order ID: ${updatedOrder._id}, Product ID: ${productId ? productId._id : "N/A"}`);
+          continue;
+        }
+
+        const singleProductPrice = productId.FinalPrice;
+        const totalAmount = singleProductPrice * quantity;
+
+        // Create an OrderSummary for the product
+        await OrderSummary.create({
+          orderId: updatedOrder._id,
+          date: updatedOrder.createdAt,
+          productId: productId._id,
+          quantity: quantity,
+          shop: shopname ? shopname : "",
+          totalAmount: totalAmount,
+          singleproductprice: singleProductPrice,
+        });
+
+        console.log(`Migrating product to OrderSummary: ${productId._id}`);
+      }
+    }
+
+    // If the status has changed to "Pending" or "Cancelled", we need to remove entries from OrderSummary
+    if ((status === "Pending" || status === "Cancelled") && previousStatus === "Delivered") {
+      // Remove OrderSummary entries for this order
+      await OrderSummary.deleteMany({ orderId: updatedOrder._id });
+      console.log(`Removed OrderSummary entries for Order ID: ${updatedOrder._id}`);
+    }
+
+    // Send the updated order data as a response
+    res.status(200).json(updatedOrder);
   } catch (error) {
+    console.error("Error updating order:", error.message);
     res.status(500).json({ error: error.message });
   }
 };
-
 const deleteOrderById = async (req, res) => {
   try {
     const { id } = req.params;

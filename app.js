@@ -7,6 +7,8 @@ const Saller = require("./routes/sallerroute");
 const User = require("./routes/user");
 const database = require("./config/database");
 
+const {migrateOrdersToOrderSummary} = require("./controller/ordersummary");
+
 dotenv.config();
 dotenv.config({ path: "./config/config.env" });
 app.use(cors());
@@ -14,7 +16,11 @@ app.use(express.json());
 
 database();
 
+
+
+
 app.use("/api", serviceRoute, Saller,User);
+// app.get("/migrate-orders", migrateOrdersToOrderSummary);
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;

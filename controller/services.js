@@ -165,7 +165,7 @@ const getproductsbyserviceid = async (req, res) => {
         }
 
         const products = await Product.find({
-            name: { $regex: word, $options: "i" }, // Case-insensitive search
+            name: { $regex: word, $options: "i" }, active:"true"  // Case-insensitive search
         }).populate("category");
         res.status(200).json({ products, totalProducts: products.length });
     } catch (error) {
