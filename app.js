@@ -20,7 +20,7 @@ database();
 
 
 app.use("/api", serviceRoute, Saller,User);
-// app.get("/migrate-orders", migrateOrdersToOrderSummary);
+app.get("/migrate-orders", migrateOrdersToOrderSummary);
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
