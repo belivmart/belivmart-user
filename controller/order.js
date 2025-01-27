@@ -3,6 +3,7 @@ const Product = require("../model/products");
 const Order = require("../model/order");
 const sendEmail = require("../utils/sendmail");
 const fcm = require("../firebase/fcm");
+const OrderSummary = require("../model/ordersummary");
 
 const createOrder = async (req, res) => {
   try {
@@ -165,7 +166,8 @@ const updateOrderById = async (req, res) => {
     const updatedOrder = await Order.findByIdAndUpdate(id, req.body, { new: true });
 
     // If the status has changed to "Delivered", we need to add entries to the OrderSummary
-    if (status === "Delivered" && previousStatus !== "Delivered") {
+    if (status === "Delivered" ) {
+      console.log("Migrating order to OrderSummary: ", updatedOrder);
       // Iterate through products in the order to create entries in OrderSummary
       for (const product of updatedOrder.products) {
         const { productId, quantity, shopname } = product;

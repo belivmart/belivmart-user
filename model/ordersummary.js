@@ -14,16 +14,16 @@ const orderSchema = new mongoose.Schema({
     ref: "Product",
   },
   quantity: {
-    type: Number,
+    type: String,
   },
   shop: {
     type: String,
   },
   totalAmount: {
-    type: Number,
+    type: String,
   },
   singleproductprice: {
-    type: Number,
+    type: String,
   },
   sallerId: {
     type: mongoose.Schema.Types.ObjectId,
